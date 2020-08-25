@@ -24,7 +24,7 @@ Yargs.scriptName('contrib-locs')
     {
       path: {
         alias: 'p',
-        default: './.git'
+        default: `${process.cwd}/.git`
       }
     },
     async ({ path: gitPath }) => {
@@ -91,7 +91,7 @@ Yargs.scriptName('contrib-locs')
     {
       path: {
         alias: 'p',
-        default: './.git'
+        default: `${process.cwd}/.git`
       }
     },
     onPreCommit

@@ -30,7 +30,7 @@ const getStagedPatches = async (path: string) => {
 export const onPreCommit = async ({ path: gitPath }: { path: string }) => {
   const patches = await getStagedPatches(gitPath)
   const statInstance = new LocsStatsPerUser(true)
-  const currentUser = runGit('.', ['config', 'user.email'])
+  const currentUser = runGit(process.cwd(), ['config', 'user.email'])
 
   patches.forEach((patch) => {
     statInstance.addLineStat(currentUser.stdout, patch.lineStats())

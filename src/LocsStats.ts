@@ -97,7 +97,7 @@ export class LocsStatsPerUser {
   }
 
   saveAsFile() {
-    const execaResult = runGit('.', ['rev-parse', 'HEAD'])
+    const execaResult = runGit(process.cwd(), ['rev-parse', 'HEAD'])
 
     const data = {
       lastCommit: execaResult.stdout.substr(0, 7),
