@@ -9,6 +9,7 @@
     "experimentalDecorators": true,
     "jsx": "preserve",
     "target": "esnext",
+    "module": "commonjs",
     "declaration": true,
     "outDir": "lib",
     "rootDir": "src"

@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { install as installSourceMapSupport } from 'source-map-support'
 import git, { Commit } from 'nodegit'
 import path from 'path'
