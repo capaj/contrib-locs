@@ -1,7 +1,7 @@
 {
   "name": "contrib-locs",
   "description": "a CLI util/git hook to keep a list of all people who are to blame for all the the inidividual lines in a codebase",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "MIT",
   "author": {
     "name": "Jiří Špác",
@@ -26,8 +26,8 @@
     "clean": "del-cli lib lib-commonjs dist css coverage && jest --clearCache",
     "eslint": "eslint \"src/**/*.{js,jsx,ts,tsx}\" --ignore-pattern \"/__demo__/\" --no-error-on-unmatched-pattern",
     "jest": "cross-env NODE_ENV=test jest",
-    "prepack": "build",
-    "prestart": "build:js",
+    "prepack": "tsc",
+    "prestart": "tsc",
     "reformat": "eslint --fix --quiet",
     "tsc": "tsc"
   },
