@@ -103,7 +103,7 @@ export class LocsStatsPerUser {
       lastCommit: execaResult.stdout.substr(0, 7),
       updatedAt: new Date().toISOString(),
       contributors: Object.values(this.output).sort((a, b) => {
-        return a.loc - b.loc
+        return b.loc - a.loc
       })
     }
     return fs.writeFileSync(repoStatsFileName, JSON.stringify(data, null, 4))

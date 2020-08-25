@@ -1,6 +1,5 @@
 #!/usr/bin/env node
 
-import { install as installSourceMapSupport } from 'source-map-support'
 import git, { Commit } from 'nodegit'
 import path from 'path'
 import micromatch from 'micromatch'
@@ -8,12 +7,12 @@ import debug from 'debug'
 import Yargs from 'yargs'
 import { LocsStatsPerUser } from '../LocsStats'
 import { onPreCommit } from '../onPreCommit'
-installSourceMapSupport()
+
 const log = debug('contrib-locs')
 
 const getConfig = async () => {
   return {
-    match: ['*.ts', '*.js', '*.md']
+    match: ['**/*.ts', '**/*.js', '**/*.md']
   }
 }
 
@@ -24,7 +23,7 @@ Yargs.scriptName('contrib-locs')
     {
       path: {
         alias: 'p',
-        default: `${process.cwd}/.git`
+        default: `${process.cwd()}/.git`
       }
     },
     async ({ path: gitPath }) => {
