@@ -1,6 +1,6 @@
 {
   "name": "contrib-locs",
-  "description": "a CLI util to keep a list of all people who are to blame for all the the inidividual lines in the codebase",
+  "description": "a CLI util/git hook to keep a list of all people who are to blame for all the the inidividual lines in a codebase",
   "version": "0.1.0",
   "license": "MIT",
   "author": {
@@ -11,7 +11,7 @@
     "type": "git",
     "url": "https://github.com/capaj/contrib-locs.git"
   },
-  "bin": "bin/contrib-locs.js",
+  "bin": "lib/bin/contrib-locs.js",
   "files": [
     "README.md",
     "css/",
@@ -32,39 +32,45 @@
     "tsc": "tsc"
   },
   "dependencies": {
-    "@types/source-map-support": "^0.5.2",
-    "nodegit": "^0.27.0"
+    "@types/source-map-support": "^0.5.3",
+    "debug": "^4.1.1",
+    "execa": "^4.0.3",
+    "micromatch": "^4.0.2",
+    "nodegit": "^0.27.0",
+    "yargs": "^16.0.0-beta.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
-    "@babel/core": "^7.11.1",
-    "@babel/generator": "^7.11.0",
+    "@babel/core": "^7.11.4",
+    "@babel/generator": "^7.11.4",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
     "@babel/plugin-proposal-decorators": "^7.10.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
     "@babel/plugin-transform-typescript": "^7.11.0",
     "@babel/preset-env": "^7.11.0",
-    "@types/jest": "^26.0.9",
-    "@types/node": "^14.0.27",
+    "@types/debug": "^4.1.5",
+    "@types/jest": "^26.0.10",
+    "@types/micromatch": "^4.0.1",
+    "@types/node": "^14.6.0",
     "@types/nodegit": "^0.26.7",
-    "@typescript-eslint/eslint-plugin": "^3.8.0",
-    "@typescript-eslint/parser": "^3.8.0",
+    "@typescript-eslint/eslint-plugin": "^3.10.0",
+    "@typescript-eslint/parser": "^3.10.0",
     "@xornot/run-script": "^0.1.2",
     "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^26.2.2",
+    "babel-jest": "^26.3.0",
     "babel-plugin-const-enum": "^1.0.1",
     "cross-env": "^7.0.2",
     "del-cli": "^3.0.1",
-    "eslint": "^7.6.0",
+    "eslint": "^7.7.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.5",
+    "eslint-plugin-react": "^7.20.6",
     "husky": "^4.2.5",
-    "jest": "^26.2.2",
-    "prettier": "^2.0.5",
-    "pretty-quick": "^2.0.1",
+    "jest": "^26.4.2",
+    "prettier": "^2.1.0",
+    "pretty-quick": "^3.0.0",
     "source-map-support": "^0.5.19",
-    "typescript": "^3.9.7"
+    "typescript": "^4.0.2"
   },
   "husky": {
     "hooks": {

@@ -1,56 +1,98 @@
-#!/usr/bin/env node
-import { install as installSourceMapSupport } from 'source-map-support';
-import git from 'nodegit';
-import path from 'path';
+import { install as installSourceMapSupport } from 'source-map-support'
+import git, { Commit } from 'nodegit'
+import path from 'path'
+import micromatch from 'micromatch'
+import debug from 'debug'
+import Yargs from 'yargs'
+import { LocsStatsPerUser } from './LocsStats'
+import { onPreCommit } from './onPreCommit'
+installSourceMapSupport()
+const log = debug('contrib-locs')
 
-export async function main(argv: string[]) {
-  console.log('Hello, world!', argv);
-  const files: string[] = [];
-  const repo = await git.Repository.open(path.resolve(__dirname, '../.git'));
-  const firstCommitOnMaster = await repo.getMasterCommit();
-  const tree = await firstCommitOnMaster.getTree();
-  const walker = tree.walk();
-  walker.on('entry', (entry) => {
-    console.log(entry.path());
-    files.push(entry.path());
-  });
+const getConfig = async () => {
+  return {
+    match: ['*.ts', '*.js', '*.md']
+  }
+}
 
-  walker.on('end', async () => {
-    await Promise.all(
-      files.map(async (filePath) => {
-        const blame = await git.Blame.file(repo, filePath);
-        console.log('blame', blame.getHunkCount());
+Yargs.scriptName('contrib-locs')
+  .command(
+    ['init', 'i'],
+    'initialize a contributors ledger in this repo',
+    {
+      path: {
+        alias: 'p',
+        default: './.git'
+      }
+    },
+    async ({ path: gitPath }) => {
+      const statInstance = new LocsStatsPerUser(false)
+      const config = await getConfig()
+      const repo = await git.Repository.open(path.resolve(__dirname, gitPath))
+      const firstCommitOnMaster = await repo.getMasterCommit()
+      const revwalk = git.Revwalk.create(repo)
+      revwalk.reset()
+      revwalk.sorting(git.Revwalk.SORT.TIME, git.Revwalk.SORT.REVERSE)
+      revwalk.push(firstCommitOnMaster.id())
 
-        let count = 1;
-        for (const i = 0; i < blame.getHunkCount(); i++) {
-          const hunk = blame.getHunkByIndex(i);
-          // @ts-ignore
-          const linesInHunk = hunk.linesInHunk();
-          console.log('hunk', linesInHunk);
-          for (const j = 0; j < linesInHunk; j++) {
-            console.log(
-              count + ':' + hunk.finalCommitId().toString().substring(0, 8)
-            );
-            count++;
+      // step through all OIDs for the given reference
+      const allOids = []
+      let hasNext = true
+      let commit: Commit | undefined
+      while (hasNext) {
+        try {
+          const oid = await revwalk.next()
+          log(`commit: ${oid.tostrS()}`)
+          commit = await repo.getCommit(oid)
+          const authorEmail = commit.author().email()
+
+          const diff = await commit.getDiff()
+          await Promise.all(
+            diff.map(async (d) => {
+              const patches = await d.patches()
+
+              await Promise.all(
+                patches.map(async (patch) => {
+                  const path = patch.newFile().path()
+                  if (micromatch.isMatch(path, config.match)) {
+                    log(`adding a diff for ${path}: `)
+
+                    console.log(patch.lineStats())
+                    statInstance.addLineStat(authorEmail, patch.lineStats())
+                  }
+                })
+              )
+            })
+          )
+
+          allOids.push(oid)
+        } catch (err) {
+          hasNext = false
+          if (!commit) {
+            throw err
+          } else {
+            statInstance.setLastCommit(commit)
           }
         }
-      })
-    );
-  });
-  walker.start();
-}
+      }
+      statInstance.countPercentages()
 
-//
-// Boilerplate
-//
+      log(statInstance.output)
+      statInstance.saveAsFile()
+    }
+  )
 
-function onError(err: unknown) {
-  console.log(err);
-  process.exit(1);
-}
-
-process.on('uncaughtException', onError);
-process.on('unhandledRejection', onError);
-
-installSourceMapSupport();
-main(process.argv);
+  .demandCommand(1)
+  .command(
+    ['preCommit', 'c'],
+    'update contributors ledger and stage it for commit',
+    {
+      path: {
+        alias: 'p',
+        default: './.git'
+      }
+    },
+    onPreCommit
+  )
+  .help()
+  .parse()
