@@ -47,3 +47,25 @@ Here's an example how you can set up git hook to update contributors before each
     }
   }
 ```
+
+## Including/excluding files
+
+You will most likely want to ignore certain files. Like for example files that are generated code.
+By default contrib-locs only works on files that are in git, so if such files are in `.gitignore` there's not additional config needed.
+If you want to exclude/include files in git, use `.contrib-locs` file. File format is JSON5.
+
+For example if you only want to count files that are typescript files and markdown, you can use this:
+
+```js
+{
+  match: ['**/*.ts', '**/*.tsx', '**/*.md']
+}
+```
+
+`match` is used as param for micromatch so you can also negate if needed. Like if you want to count all files except json:
+
+```js
+{
+  match: ['*', '!**/*.json']
+}
+```

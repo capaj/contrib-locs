@@ -1,7 +1,7 @@
 import { Commit } from 'nodegit'
 import fs from 'fs'
 import { runGit } from './onPreCommit'
-// import debug from 'debug'
+import chalk from 'chalk'
 // const log = debug('contrib-locs')
 
 export interface ILineStats {
@@ -31,7 +31,9 @@ export class LocsStatsPerUser {
         parsed = JSON.parse(previousOutput)
       } catch (err) {
         console.warn(
-          `seems like the ${repoStatsFileName} does not exist, please run 'contrib-locs first'`
+          chalk.yellow(
+            `seems like the "${repoStatsFileName}" file does not exist, please run 'contrib-locs first'`
+          )
         ) // TODO ask user if we should run the whole init
         throw err
       }

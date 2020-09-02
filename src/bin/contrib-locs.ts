@@ -7,14 +7,9 @@ import debug from 'debug'
 import Yargs from 'yargs'
 import { LocsStatsPerUser } from '../LocsStats'
 import { onPreCommit } from '../onPreCommit'
+import { getConfig } from '../getConfig'
 
 const log = debug('contrib-locs')
-
-const getConfig = async () => {
-  return {
-    match: ['**/*.ts', '**/*.js', '**/*.md']
-  }
-}
 
 Yargs.scriptName('contrib-locs')
   .command(
@@ -56,9 +51,7 @@ Yargs.scriptName('contrib-locs')
                 patches.map(async (patch) => {
                   const path = patch.newFile().path()
                   if (micromatch.isMatch(path, config.match)) {
-                    log(`adding a diff for ${path}: `)
-
-                    console.log(patch.lineStats())
+                    log(`adding a diff for ${path}: `, patch.lineStats())
                     statInstance.addLineStat(authorEmail, patch.lineStats())
                   }
                 })
