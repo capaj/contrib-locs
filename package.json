@@ -1,7 +1,7 @@
 {
   "name": "contrib-locs",
   "description": "a CLI util/git hook to keep a list of all people who are to blame for all the the inidividual lines in a codebase",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "license": "MIT",
   "author": {
     "name": "Jiří Špác",
