@@ -88,5 +88,12 @@ Yargs.scriptName('contrib-locs')
     },
     onPreCommit
   )
+  .fail(function (msg, err) {
+    if (err) {
+      throw err
+    }
+    console.error(msg)
+    process.exit(1)
+  })
   .help()
   .parse()
