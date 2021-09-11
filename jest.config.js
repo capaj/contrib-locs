@@ -9,7 +9,7 @@ module.exports = {
   collectCoverageFrom: [
     'src/**/*.{ts,tsx,js,jsx}',
     '!src/**/*.d.ts',
-    '!**/__demo__/**',
+    '!**/__demo__/**'
   ],
 
   // The directory where Jest should output its coverage files
@@ -19,14 +19,14 @@ module.exports = {
   coverageReporters: ['text-summary', 'json', 'html'],
 
   // An object that configures minimum threshold enforcement for coverage results
-  coverageThreshold: {
-    global: {
-      branches: 80,
-      functions: 80,
-      lines: 80,
-      statements: 80,
-    },
-  },
+  // coverageThreshold: {
+  //   global: {
+  //     branches: 80,
+  //     functions: 80,
+  //     lines: 80,
+  //     statements: 80
+  //   }
+  // },
 
   // Make calling deprecated APIs throw helpful error messages
   errorOnDeprecated: true,
@@ -38,10 +38,7 @@ module.exports = {
   // moduleNameMapper: {},
 
   // The glob patterns Jest uses to detect test files
-  testMatch: [
-    '<rootDir>/src/**/test.{js,jsx,ts,tsx}',
-    '<rootDir>/src/**/*.test.{js,jsx,ts,tsx}',
-  ],
+  testMatch: ['<rootDir>/**/*.spec.{js,jsx,ts,tsx}'],
 
   // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href
   // testURL: "http://localhost",
@@ -51,16 +48,16 @@ module.exports = {
 
   // A map from regular expressions to paths to transformers
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest',
+    '^.+\\.(js|jsx|ts|tsx)$': '<rootDir>/node_modules/babel-jest'
   },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   transformIgnorePatterns: [
-    '[/\\\\]node_modules[/\\\\]',
+    '[/\\\\]node_modules[/\\\\]'
     // Replace the above exclusion with the following pattern to include some node modules.
     // "[/\\\\]node_modules[/\\\\](?!NODE_MODULE).+\\.{ts,tsx,js,jsx}"
   ],
 
   // Indicates whether each individual test should be reported during the run
-  verbose: true,
-};
+  verbose: true
+}

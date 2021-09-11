@@ -1,6 +1,6 @@
 {
   "name": "contrib-locs",
-  "description": "a CLI util/git hook to keep a list of all people who are to blame for all the the inidividual lines in a codebase",
+  "description": "a CLI util/git hook to count total line of code contributed to a repo for each git user",
   "version": "0.1.6",
   "license": "MIT",
   "author": {
