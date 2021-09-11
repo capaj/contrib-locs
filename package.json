@@ -1,7 +1,7 @@
 {
   "name": "contrib-locs",
   "description": "a CLI util/git hook to count total line of code contributed to a repo for each git user",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "license": "MIT",
   "author": {
     "name": "Jiří Špác",

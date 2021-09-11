@@ -39,7 +39,7 @@ module.exports = {
 
   // The glob patterns Jest uses to detect test files
   testMatch: ['<rootDir>/**/*.spec.{js,jsx,ts,tsx}'],
-
+  testPathIgnorePatterns: ['fixtures'],
   // This option sets the URL for the jsdom environment. It is reflected in properties such as location.href
   // testURL: "http://localhost",
 

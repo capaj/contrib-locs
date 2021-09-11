@@ -19,7 +19,8 @@
     "**/*.test.ts",
     "**/test.tsx",
     "**/test.ts",
-    "**/__demo__/**"
+    "**/__demo__/**",
+    "fixtures/**"
   ],
   "include": ["src/**/*.tsx", "src/**/*.ts"]
 }
