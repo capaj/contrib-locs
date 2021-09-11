@@ -8,6 +8,7 @@ import Yargs from 'yargs'
 import { LocsStatsPerUser } from '../LocsStats'
 import { onPreCommit } from '../onPreCommit'
 import { getConfig } from '../getConfig'
+import execa from 'execa'
 
 const log = debug('contrib-locs')
 
@@ -24,8 +25,14 @@ Yargs.scriptName('contrib-locs')
     async ({ path: gitPath }) => {
       const statInstance = new LocsStatsPerUser(false)
       const config = await getConfig()
+      const defaultBranchName = execa.sync('git', [
+        'symbolic-ref',
+        '--short',
+        'HEAD'
+      ]).stdout
+
       const repo = await git.Repository.open(path.resolve(__dirname, gitPath))
-      const firstCommitOnMaster = await repo.getMasterCommit()
+      const firstCommitOnMaster = await repo.getBranchCommit(defaultBranchName)
       const revwalk = git.Revwalk.create(repo)
       revwalk.reset()
       revwalk.sorting(git.Revwalk.SORT.TIME, git.Revwalk.SORT.REVERSE)

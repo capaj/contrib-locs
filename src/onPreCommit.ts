@@ -5,7 +5,7 @@ import execa from 'execa'
 import micromatch from 'micromatch'
 import { getConfig } from './getConfig'
 
-export const runGit = (
+export const execGit = (
   directory: string,
   args: readonly string[] | undefined
 ) =>
@@ -14,7 +14,7 @@ export const runGit = (
   })
 
 const stageFile = (directory: string, file: string) => {
-  runGit(directory, ['add', file])
+  execGit(directory, ['add', file])
 }
 
 const getStagedPatches = async (path: string) => {
@@ -38,7 +38,7 @@ export const onPreCommit = async ({ path: gitPath }: { path: string }) => {
   ])
 
   const statInstance = new LocsStatsPerUser(true)
-  const currentUser = runGit(process.cwd(), ['config', 'user.email'])
+  const currentUser = execGit(process.cwd(), ['config', 'user.email'])
 
   const filePaths = patches.map((patch) => {
     return patch.newFile().path()

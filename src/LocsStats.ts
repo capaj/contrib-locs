@@ -1,6 +1,6 @@
 import { Commit } from 'nodegit'
 import fs from 'fs'
-import { runGit } from './onPreCommit'
+import { execGit } from './onPreCommit'
 import chalk from 'chalk'
 // const log = debug('contrib-locs')
 
@@ -99,7 +99,7 @@ export class LocsStatsPerUser {
   }
 
   saveAsFile() {
-    const execaResult = runGit(process.cwd(), ['rev-parse', 'HEAD'])
+    const execaResult = execGit(process.cwd(), ['rev-parse', 'HEAD'])
 
     const data = {
       lastCommit: execaResult.stdout.substr(0, 7),
