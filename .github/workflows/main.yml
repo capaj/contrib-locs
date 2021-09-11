@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - name: Install Dependencies for Ubuntu
-        if: startsWith(matrix.os, 'ubuntu')
-        run: sudo apt install build-essential libssl-dev libkrb5-dev libc++-dev
+        run: sudo apt install build-essential libssl-dev libkrb5-dev libc++-dev krb5-config
         env:
           ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
