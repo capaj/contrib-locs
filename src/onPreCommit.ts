@@ -1,6 +1,7 @@
 import NodeGit from 'nodegit'
 import { LocsStatsPerUser, repoStatsFileName } from './LocsStats'
 import execa from 'execa'
+import path from 'path'
 
 import micromatch from 'micromatch'
 import { getConfig } from './getConfig'
@@ -17,8 +18,10 @@ const stageFile = (directory: string, file: string) => {
   execGit(directory, ['add', file])
 }
 
-const getStagedPatches = async (path: string) => {
-  const repo = await NodeGit.Repository.open(path)
+const getStagedPatches = async (repoRootPath: string) => {
+  const repo = await NodeGit.Repository.open(
+    path.resolve(path.join(repoRootPath, '.git'))
+  )
 
   const head = await repo.getHeadCommit()
   if (!head) {
@@ -31,9 +34,9 @@ const getStagedPatches = async (path: string) => {
   return patches
 }
 
-export const onPreCommit = async ({ path: gitPath }: { path: string }) => {
+export const onPreCommit = async ({ path: repoRootPath }: { path: string }) => {
   const [patches, config] = await Promise.all([
-    getStagedPatches(gitPath),
+    getStagedPatches(repoRootPath),
     getConfig()
   ])
 
