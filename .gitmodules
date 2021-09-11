@@ -1,3 +1,4 @@
 [submodule "fixtures/solid"]
 	path = fixtures/solid
 	url = https://github.com/solidjs/solid.git
+  branch = main
