@@ -2,6 +2,8 @@ import { Commit } from 'nodegit'
 import fs from 'fs'
 import { execGit } from './onPreCommit'
 import chalk from 'chalk'
+// import debug from 'debug'
+
 // const log = debug('contrib-locs')
 
 export interface ILineStats {

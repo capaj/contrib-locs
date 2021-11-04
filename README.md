@@ -36,16 +36,12 @@ There are two command
 
 invoke `contrib-locs init` in your project repo root.
 
-## Set up githooks
+## Set up githooks with husky
 
-Here's an example how you can set up git hook to update contributors before each commit:
+Here's an example husky(7.x.x) CLI command to use to set up git hook to update contributors before each commit:
 
 ```
-  "husky": {
-    "hooks": {
-      "pre-commit": "contrib-locs c"
-    }
-  }
+ npx husky add .husky/pre-commit "contrib-locs preCommit"
 ```
 
 ## Including/excluding files

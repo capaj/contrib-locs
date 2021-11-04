@@ -41,22 +41,32 @@ export const onPreCommit = async ({ path: repoRootPath }: { path: string }) => {
   ])
 
   const statInstance = new LocsStatsPerUser(true)
-  const currentUser = execGit(process.cwd(), ['config', 'user.email'])
+  const currentUser = execGit(process.cwd(), ['config', 'user.email']).stdout
 
   const filePaths = patches.map((patch) => {
     return patch.newFile().path()
   })
 
   const matchedFilePaths = micromatch(filePaths, config.match)
-
+  const previousPercentageOfTotal =
+    statInstance.output[currentUser].percentageOfTotal
   patches
     .filter((patch) => {
       return matchedFilePaths.includes(patch.newFile().path())
     })
     .forEach((patch) => {
-      statInstance.addLineStat(currentUser.stdout, patch.lineStats())
+      const lineStats = patch.lineStats()
+      statInstance.addLineStat(currentUser, lineStats)
+      console.log('contrib-locs added for you: ', {
+        total_additions: lineStats.total_additions,
+        total_deletions: lineStats.total_deletions
+      })
     })
 
+  statInstance.countPercentages()
+  console.log(
+    `your contribution increased from ${previousPercentageOfTotal} to ${statInstance.output[currentUser].percentageOfTotal}`
+  )
   statInstance.saveAsFile()
   stageFile('.', repoStatsFileName)
 }
