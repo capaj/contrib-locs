@@ -64,9 +64,13 @@ export const onPreCommit = async ({ path: repoRootPath }: { path: string }) => {
     })
 
   statInstance.countPercentages()
-  console.log(
-    `your contribution increased from ${previousPercentageOfTotal} to ${statInstance.output[currentUser].percentageOfTotal}`
-  )
+  const newPercentage = statInstance.output[currentUser].percentageOfTotal
+
+  if (previousPercentageOfTotal > newPercentage) {
+    console.log(
+      `your contribution increased from ${previousPercentageOfTotal} to ${newPercentage}`
+    )
+  }
   statInstance.saveAsFile()
   stageFile('.', repoStatsFileName)
 }
