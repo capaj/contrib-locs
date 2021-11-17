@@ -35,9 +35,15 @@ export const initializeInRepo = async (repoRootPath: string) => {
   while (hasNext) {
     try {
       const oid = await revwalk.next()
-      log(`commit: ${oid.tostrS()}`)
+
       commit = await repo.getCommit(oid)
       const authorEmail = commit.author().email()
+      if (micromatch([authorEmail], config.matchUsers).length === 0) {
+        continue
+      }
+      log(`commit: ${oid.tostrS()}`)
+
+      statInstance.totalCommits += 1
 
       const diff = await commit.getDiff()
       await Promise.all(
@@ -47,7 +53,7 @@ export const initializeInRepo = async (repoRootPath: string) => {
           await Promise.all(
             patches.map(async (patch) => {
               const path = patch.newFile().path()
-              if (micromatch.isMatch(path, config.match)) {
+              if (micromatch([path], config.matchFiles).length === 1) {
                 log(`adding a diff for ${path}: `, patch.lineStats())
                 statInstance.addLineStat(authorEmail, patch.lineStats())
               }

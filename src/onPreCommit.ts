@@ -47,9 +47,9 @@ export const onPreCommit = async ({ path: repoRootPath }: { path: string }) => {
     return patch.newFile().path()
   })
 
-  const matchedFilePaths = micromatch(filePaths, config.match)
+  const matchedFilePaths = micromatch(filePaths, config.matchFiles)
   const previousPercentageOfTotal =
-    statInstance.output[currentUser].percentageOfTotal
+    statInstance.usersMap[currentUser].percentageOfTotal
   patches
     .filter((patch) => {
       return matchedFilePaths.includes(patch.newFile().path())
@@ -64,13 +64,14 @@ export const onPreCommit = async ({ path: repoRootPath }: { path: string }) => {
     })
 
   statInstance.countPercentages()
-  const newPercentage = statInstance.output[currentUser].percentageOfTotal
+  const newPercentage = statInstance.usersMap[currentUser].percentageOfTotal
 
   if (previousPercentageOfTotal > newPercentage) {
     console.log(
       `your contribution increased from ${previousPercentageOfTotal} to ${newPercentage}`
     )
   }
+  statInstance.totalCommits += 1
   statInstance.saveAsFile()
   stageFile('.', repoStatsFileName)
 }

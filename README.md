@@ -44,17 +44,29 @@ Here's an example husky(7.x.x) CLI command to use to set up git hook to update c
  npx husky add .husky/pre-commit "contrib-locs preCommit"
 ```
 
-## Including/excluding files
+## Config
+
+Is defined in the root of your git repo in a file `.contrib-locs` file. File format is JSON5.
+Default config looks like this:
+
+```js
+{
+  matchFiles: ['*'],
+  matchUsers: ['*', '!*@users.noreply.github.com'] // filters out github bots
+}
+```
+
+### Including/excluding files
 
 You will most likely want to ignore certain files. Like for example files that are generated code.
 By default contrib-locs only works on files that are in git, so if such files are in `.gitignore` there's no additional config needed.
-If you want to exclude/include files in git, use `.contrib-locs` file. File format is JSON5.
+If you want to exclude/include files in git add `matchFiles`
 
 For example if you only want to count files that are typescript files and markdown, you can use this:
 
 ```js
 {
-  match: ['**/*.ts', '**/*.tsx', '**/*.md']
+  matchFiles: ['**/*.ts', '**/*.tsx', '**/*.md']
 }
 ```
 
@@ -62,6 +74,16 @@ For example if you only want to count files that are typescript files and markdo
 
 ```js
 {
-  match: ['*', '!**/*.json']
+  matchFiles: ['*', '!**/*.json']
 }
 ```
+
+### Including/excluding users
+
+```js
+{
+  matchUsers: ['*@uber.com', '!*[bot]@users.noreply.github.com'] // only people from uber domain will get counted, bots will be ignored
+}
+```
+
+contributions from unmatched users are skipped. They don't even count into the `totalLinesAddedOrRemoved`.

@@ -1,15 +1,28 @@
 import { readFile } from 'fs/promises'
 import JSON5 from 'json5'
 
-export const getConfig = async () => {
-  let config = { match: ['*'] }
+interface IConfig {
+  matchFiles: string[]
+  matchUsers: string[]
+}
 
+export const defaultConfig: IConfig = {
+  matchFiles: ['*'],
+  matchUsers: ['*', '!*[bot]@users.noreply.github.com'] // filters out github bots
+}
+
+export const getConfig: () => Promise<IConfig> = async () => {
   try {
     const dotFile = await readFile('./.contrib-locs', 'utf8')
-    config = JSON5.parse(dotFile)
-  } catch (err) {
-    return config
+    const parsedConfig = JSON5.parse(dotFile)
+    return {
+      ...defaultConfig,
+      ...parsedConfig
+    }
+  } catch (err: any) {
+    if (err.code === 'ENOENT') {
+      return defaultConfig
+    }
+    throw err
   }
-
-  return config
 }

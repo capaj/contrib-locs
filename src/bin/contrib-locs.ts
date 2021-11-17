@@ -20,9 +20,11 @@ Yargs.scriptName('contrib-locs')
     },
     async ({ path: gitPath }) => {
       const statInstance = await initializeInRepo(gitPath)
-      log(statInstance.output)
+      log(statInstance.usersMap)
       statInstance.saveAsFile()
-      console.log(`Saved in ${repoStatsFileName}`)
+      console.log(
+        `Saved in ${repoStatsFileName}, counted ${statInstance.totalCommits} commits`
+      )
     }
   )
 

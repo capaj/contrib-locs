@@ -19,11 +19,12 @@ export const repoStatsFileName = './contrib-locs.json'
 
 export class LocsStatsPerUser {
   lastCommit: Commit | undefined
+  totalCommits = 0
 
   setLastCommit(commit: Commit) {
     this.lastCommit = commit
   }
-  output: Record<string, ISingleUserStat>
+  usersMap: Record<string, ISingleUserStat>
 
   constructor(isPrecommit: boolean) {
     let parsed
@@ -46,8 +47,9 @@ export class LocsStatsPerUser {
       parsed.contributors.forEach((contributor: ISingleUserStat) => {
         initial[contributor.email] = contributor
       })
+      this.totalCommits = parsed.totalCommits
     }
-    this.output = initial
+    this.usersMap = initial
   }
 
   // async addHunk(email: string, hunk: ConvenientHunk) {
@@ -63,8 +65,8 @@ export class LocsStatsPerUser {
   //   log('added line/s', hunk.newLines())
   // }
   async addLineStat(email: string, lineStats: ILineStats) {
-    if (!this.output[email]) {
-      this.output[email] = {
+    if (!this.usersMap[email]) {
+      this.usersMap[email] = {
         email: email,
         loc: lineStats.total_additions + lineStats.total_deletions,
         total_additions: lineStats.total_additions,
@@ -72,26 +74,17 @@ export class LocsStatsPerUser {
         percentageOfTotal: 0
       }
     } else {
-      this.output[email].total_additions += lineStats.total_additions
-      this.output[email].total_deletions += lineStats.total_deletions
-      this.output[email].loc +=
+      this.usersMap[email].total_additions += lineStats.total_additions
+      this.usersMap[email].total_deletions += lineStats.total_deletions
+      this.usersMap[email].loc +=
         lineStats.total_additions + lineStats.total_deletions
     }
   }
 
   countPercentages() {
-    const totalLinesAddedOrRemoved = Object.values(this.output).reduce(
-      (sum, contributorStat) => {
-        return (
-          sum +
-          contributorStat.total_additions +
-          contributorStat.total_deletions
-        )
-      },
-      0
-    )
+    const totalLinesAddedOrRemoved = this.getTotalLinesAddedOrRemoved()
 
-    Object.values(this.output).forEach((singleUserStat) => {
+    Object.values(this.usersMap).forEach((singleUserStat) => {
       const linesChangedByUser =
         singleUserStat.total_additions + singleUserStat.total_deletions
       singleUserStat.loc = linesChangedByUser
@@ -100,13 +93,23 @@ export class LocsStatsPerUser {
     })
   }
 
+  getTotalLinesAddedOrRemoved() {
+    return Object.values(this.usersMap).reduce((sum, contributorStat) => {
+      return (
+        sum + contributorStat.total_additions + contributorStat.total_deletions
+      )
+    }, 0)
+  }
+
   saveAsFile() {
     const execaResult = execGit(process.cwd(), ['rev-parse', 'HEAD'])
 
     const data = {
       lastCommit: execaResult.stdout.substr(0, 7),
       updatedAt: new Date().toISOString(),
-      contributors: Object.values(this.output).sort((a, b) => {
+      totalCommits: this.totalCommits,
+      totalLinesAddedOrRemoved: this.getTotalLinesAddedOrRemoved(),
+      contributors: Object.values(this.usersMap).sort((a, b) => {
         return b.loc - a.loc
       })
     }
