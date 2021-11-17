@@ -52,7 +52,7 @@ Default config looks like this:
 ```js
 {
   matchFiles: ['*'],
-  matchUsers: ['*', '!*@users.noreply.github.com'] // filters out github bots
+  matchUsers: ['*', '!*[bot]@users.noreply.github.com'] // filters out github bots
 }
 ```
 
