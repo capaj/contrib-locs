@@ -7,7 +7,7 @@ interface IConfig {
 }
 
 export const defaultConfig: IConfig = {
-  matchFiles: ['*'],
+  matchFiles: ['*', '!contrib-locs.json'],
   matchUsers: ['*', '!*[bot]@users.noreply.github.com'] // filters out github bots
 }
 

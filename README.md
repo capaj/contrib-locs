@@ -51,7 +51,7 @@ Default config looks like this:
 
 ```js
 {
-  matchFiles: ['*'],
+  matchFiles: ['*', '!contrib-locs.json'],
   matchUsers: ['*', '!*[bot]@users.noreply.github.com'] // filters out github bots
 }
 ```
