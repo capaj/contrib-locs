@@ -1,141 +1,141 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`initializeInRepo should initialize in solid repo 1`] = `
-Object {
-  "1168397+davedbase@users.noreply.github.com": Object {
+{
+  "1168397+davedbase@users.noreply.github.com": {
     "email": "1168397+davedbase@users.noreply.github.com",
     "loc": 186,
     "percentageOfTotal": 0.022774273886356375,
     "total_additions": 94,
     "total_deletions": 92,
   },
-  "aminyahyaabadi74@gmail.com": Object {
+  "aminyahyaabadi74@gmail.com": {
     "email": "aminyahyaabadi74@gmail.com",
     "loc": 122,
     "percentageOfTotal": 0.014937964592126225,
     "total_additions": 121,
     "total_deletions": 1,
   },
-  "amoutonbrady@gmail.com": Object {
+  "amoutonbrady@gmail.com": {
     "email": "amoutonbrady@gmail.com",
     "loc": 2,
     "percentageOfTotal": 0.0002448846654446922,
     "total_additions": 1,
     "total_deletions": 1,
   },
-  "anton.yurovskykh@gmail.com": Object {
+  "anton.yurovskykh@gmail.com": {
     "email": "anton.yurovskykh@gmail.com",
     "loc": 2,
     "percentageOfTotal": 0.0002448846654446922,
     "total_additions": 1,
     "total_deletions": 1,
   },
-  "atif5801@gmail.com": Object {
+  "atif5801@gmail.com": {
     "email": "atif5801@gmail.com",
     "loc": 1,
     "percentageOfTotal": 0.0001224423327223461,
     "total_additions": 1,
     "total_deletions": 0,
   },
-  "basaratali@gmail.com": Object {
+  "basaratali@gmail.com": {
     "email": "basaratali@gmail.com",
     "loc": 8,
     "percentageOfTotal": 0.0009795386617787688,
     "total_additions": 6,
     "total_deletions": 2,
   },
-  "bryndyment@gmail.com": Object {
+  "bryndyment@gmail.com": {
     "email": "bryndyment@gmail.com",
     "loc": 14,
     "percentageOfTotal": 0.0017141926581128453,
     "total_additions": 7,
     "total_deletions": 7,
   },
-  "david@pilotinterative.ca": Object {
+  "david@pilotinterative.ca": {
     "email": "david@pilotinterative.ca",
     "loc": 38,
     "percentageOfTotal": 0.004652808643449151,
     "total_additions": 19,
     "total_deletions": 19,
   },
-  "enom@enom.ws": Object {
+  "enom@enom.ws": {
     "email": "enom@enom.ws",
     "loc": 2,
     "percentageOfTotal": 0.0002448846654446922,
     "total_additions": 1,
     "total_deletions": 1,
   },
-  "github.100.fkeller@spamgourmet.com": Object {
+  "github.100.fkeller@spamgourmet.com": {
     "email": "github.100.fkeller@spamgourmet.com",
     "loc": 109,
     "percentageOfTotal": 0.013346214266735724,
     "total_additions": 65,
     "total_deletions": 44,
   },
-  "guido4000@users.noreply.github.com": Object {
+  "guido4000@users.noreply.github.com": {
     "email": "guido4000@users.noreply.github.com",
     "loc": 2,
     "percentageOfTotal": 0.0002448846654446922,
     "total_additions": 1,
     "total_deletions": 1,
   },
-  "james@neodon.com": Object {
+  "james@neodon.com": {
     "email": "james@neodon.com",
     "loc": 187,
     "percentageOfTotal": 0.02289671621907872,
     "total_additions": 179,
     "total_deletions": 8,
   },
-  "joe@trusktr.io": Object {
+  "joe@trusktr.io": {
     "email": "joe@trusktr.io",
     "loc": 4,
     "percentageOfTotal": 0.0004897693308893844,
     "total_additions": 1,
     "total_deletions": 3,
   },
-  "modderme123@users.noreply.github.com": Object {
+  "modderme123@users.noreply.github.com": {
     "email": "modderme123@users.noreply.github.com",
     "loc": 2,
     "percentageOfTotal": 0.0002448846654446922,
     "total_additions": 1,
     "total_deletions": 1,
   },
-  "nicolas.dermine@gmail.com": Object {
+  "nicolas.dermine@gmail.com": {
     "email": "nicolas.dermine@gmail.com",
     "loc": 2,
     "percentageOfTotal": 0.0002448846654446922,
     "total_additions": 1,
     "total_deletions": 1,
   },
-  "praneybehl@gmail.com": Object {
+  "praneybehl@gmail.com": {
     "email": "praneybehl@gmail.com",
     "loc": 3,
     "percentageOfTotal": 0.0003673269981670383,
     "total_additions": 2,
     "total_deletions": 1,
   },
-  "rajeev22.18@gmail.com": Object {
+  "rajeev22.18@gmail.com": {
     "email": "rajeev22.18@gmail.com",
     "loc": 10,
     "percentageOfTotal": 0.0012244233272234609,
     "total_additions": 5,
     "total_deletions": 5,
   },
-  "ryansolid@gmail.com": Object {
+  "ryansolid@gmail.com": {
     "email": "ryansolid@gmail.com",
     "loc": 816000,
     "percentageOfTotal": 99.91294350143441,
     "total_additions": 427412,
     "total_deletions": 388588,
   },
-  "sewell.steve@gmail.com": Object {
+  "sewell.steve@gmail.com": {
     "email": "sewell.steve@gmail.com",
     "loc": 2,
     "percentageOfTotal": 0.0002448846654446922,
     "total_additions": 1,
     "total_deletions": 1,
   },
-  "trusktr@gmail.com": Object {
+  "trusktr@gmail.com": {
     "email": "trusktr@gmail.com",
     "loc": 15,
     "percentageOfTotal": 0.0018366349908351914,
