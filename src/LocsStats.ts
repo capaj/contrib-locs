@@ -26,9 +26,9 @@ export class LocsStatsPerUser {
   }
   usersMap: Record<string, ISingleUserStat>
 
-  constructor(isPrecommit: boolean) {
+  constructor(isPreCommit: boolean) {
     let parsed
-    if (isPrecommit) {
+    if (isPreCommit) {
       try {
         const previousOutput = fs.readFileSync(repoStatsFileName, 'utf8')
         parsed = JSON.parse(previousOutput)
