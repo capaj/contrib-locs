@@ -1,6 +1,8 @@
 # contrib-locs
 
-a CLI util to keep a list of all people who are to blame for all the the inidividual lines in the codebase. This can be used to roughly compare contribution volume between all the comitters.
+a CLI util to keep a list of all people who are to blame for all the the individual lines in the codebase. This can be used to roughly compare contribution volume between all the comitters.
+
+Only runs in node 16. If you need node 18, please upvote this: https://github.com/nodegit/nodegit/issues/1980
 
 ## Install
 
